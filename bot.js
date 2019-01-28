@@ -7,7 +7,7 @@ const ytdl = require('ytdl-core');
 const client = new Client({ disableEveryone: true});
 
 const youtube = new YouTube(config.GOOGLE_API_KEY);
-const PREFIX = config.prefix;
+const PREFIX = config.g;
 
 const queue = new Map();
 
@@ -67,7 +67,7 @@ client.on('message', async msg => { // eslint-disable-line
         const voiceChannel = msg.member.voiceChannel;
         if(!voiceChannel){
             var embedplay1 = new Discord.RichEmbed()
-                .setTitle(`Please Connect To A Voice Channel To Play Something!`)
+                .setTitle(`الرجاء دخول روم لتشغيل الاغاني!`)
                 .setColor(['#f9fcfc'])
             return msg.channel.sendEmbed(embedplay1);
         }
@@ -80,7 +80,7 @@ client.on('message', async msg => { // eslint-disable-line
         }
         if (!permissions.has('SPEAK')){
             var embedplay3 = new Discord.RichEmbed()
-                .setTitle(`I do not have the right to SPEAK to connect in these Voice Channel!`)
+                .setTitle(`انا ليس لدي بريمشن للتشغيل هنا!`)
                 .setColor(['#f9fcfc'])
             return msg.channel.sendEmbed(embedplay3);
         }
@@ -143,19 +143,19 @@ Please enter a number between 1-10 on,a Song select!`)
     } else if(msg.content.startsWith(`${PREFIX}skip`)) {
         if(!msg.member.voiceChannel){
            var embedskip1 = new Discord.RichEmbed()
-                .setTitle(`You are in not in the Voice Channel!`)
+                .setTitle(`انت لست موجود في روم!`)
                 .setColor(['#f9fcfc'])
             return msg.channel.sendEmbed(embedskip1); 
         }
         if(!serverQueue){
             var embedskip2 = new Discord.RichEmbed()
-                .setTitle(`There is nothing to Skip!`)
+                .setTitle(`ليس هناك شئ للتخطي!`)
                 .setColor(['#f9fcfc'])
             return msg.channel.sendEmbed(embedskip2);
         }
         serverQueue.connection.dispatcher.end('Skip command has been used!');
         var embedskip3 = new Discord.RichEmbed()
-            .setTitle(`⏩Skipped👍`)
+            .setTitle(`⏩تم تخطي👍`)
             .setColor(['#f9fcfc'])
         return msg.channel.sendEmbed(embedskip3);
     }   
@@ -163,27 +163,27 @@ Please enter a number between 1-10 on,a Song select!`)
      else if (msg.content.startsWith(`${PREFIX}stop`)){
         if(!msg.member.voiceChannel){
            var embedstop1 = new Discord.RichEmbed()
-                .setTitle(`you're not in the voice channel!`)
+                .setTitle(`انت لست في روم!`)
                 .setColor(['#f9fcfc'])
             return msg.channel.sendEmbed(embedstop1); 
         }
         if(!serverQueue){
             var embedstop2 = new Discord.RichEmbed()
-                .setTitle(`There is nothing to stop!`)
+                .setTitle(`ليس هناك شئ للايقاف!`)
                 .setColor(['#f9fcfc'])
             return msg.channel.sendEmbed(embedstop2);
         }
         serverQueue.songs = [];
-        serverQueue.connection.dispatcher.end('Stop command has been used!');
+        serverQueue.connection.dispatcher.end('تم الايقاف!');
         var embedstop3 = new Discord.RichEmbed()
-            .setTitle(`⏩Skipped👍`)
+            .setTitle(`⏩تم تخطي👍`)
             .setColor(['#f9fcfc'])
         return msg.channel.sendEmbed(embedstop3);
     }
     else if(msg.content.startsWith(`${PREFIX}song`)){
         if(!serverQueue){
             var embedsong1 = new Discord.RichEmbed()
-                .setTitle(`It does nothing at the moment!`)
+                .setTitle(`لا يحصل شئ!`)
                 .setColor(['#f9fcfc'])
             return msg.channel.sendEmbed(embedsong1);
                  }
@@ -317,18 +317,18 @@ Playing: ${serverQueue.songs[0].title}`)
     else if(msg.content.startsWith(`${PREFIX}helpmusic`)){
         var embedhelp = new Discord.RichEmbed()
             .setTitle(`marcos-MusicBot Commands`)
-            .addField("play [YouTube Link/Playlist]", "Usage: `!!play` Description: To play See The YouTube Linke And playlist.", false)
-            .addField("play [Suchbegriff(e)]", "Usage: `!!play`<song name> Description: To play Music.", false)
-            .addField("skip", "Usage: `!!skip` Description: To skip music.", false)
-            .addField("stop", "Usage: `!!stop` Description: To Bot disconnected.", false)
-            .addField("song", "Usage: `!!song` Description: To Check The Current playing song.", false)
-            .addField("queue", "Usage: `!!queue` Description: To Check The Queue List.", false)
-            .addField("volume", "Usage: `!!volume` Description: To See Volume.", false)
-            .addField("volume [Wert]", "Usage: `!!volume` Description: To Changes the volume level to the specified value.", false)
-            .addField("pause", "Usage: `!!pause` Description: To pause The Current Playing Song.", false)
-            .addField("resume", "Usage: `!!resume` Description: To Resume The Paused Song.", false)
-            .addField("mute", "Usage: `!!mute` Description: To mute Bot.", false)
-            .addField("unmute", "Usage: `!!unmute` Description: To unmute Bot.", false)
+            .addField("play [YouTube Link/Playlist]", "Usage: `!!play` Description: لاختيار الاغاني.", false)
+            .addField("play [Suchbegriff(e)]", "Usage: `!!play`<اسم الاغنية> Description: To play Music.", false)
+            .addField("skip", "Usage: `!!skip` Description: To لتخطي الاغنية.", false)
+            .addField("stop", "Usage: `!!stop` Description: لايقاف الاغنية.", false)
+            .addField("song", "Usage: `!!song` Description: يتاكد من الاغنية شغالة.", false)
+            .addField("queue", "Usage: `!!queue` Description: يتاكد من القائمة.", false)
+            .addField("volume", "Usage: `!!volume` Description: لتري صوت.", false)
+            .addField("volume [Wert]", "Usage: `!!volume` Description: لرفع او تقليل صوت.", false)
+            .addField("pause", "Usage: `!!pause` Description: لايقافها مؤقتا.", false)
+            .addField("resume", "Usage: `!!resume` Description: لتكميل الاغنية.", false)
+            .addField("mute", "Usage: `!!mute` Description: لتعطي ميوت لل بوت.", false)
+            .addField("unmute", "Usage: `!!unmute` Description: لتفك الميوت من البوت.", false)
             .setColor(['#f9fcfc'])
             .setThumbnail(client.user.avatarURL)
             return msg.channel.sendEmbed(embedhelp);
